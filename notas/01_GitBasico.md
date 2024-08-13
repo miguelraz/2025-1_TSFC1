@@ -129,7 +129,7 @@ Permite cambiarse de rama. La rama *principal* por convención es la rama `main`
     git checkout -- <file>
 ```
 
-Sirve para revertir ciertos cambios en uno o varios archivos.
+Sirve para revertir ciertos cambios en uno o varios archivos. Este comando es equivalente a `git restore --staged <file>` y `git restore <file>`.
 
 ---
 
