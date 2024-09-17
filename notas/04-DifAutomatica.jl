@@ -67,7 +67,7 @@
 """
     derivada_derecha(f, x0, h)
 
-Evalúa la derivada de ``f`` en ``x0`` usando diferencias finitas con el
+Evalúa la derivada de \$f\$ en \$x0\$ usando diferencias finitas con el
 incremento por la derecha.
 """
 derivada_derecha(f, x0, h) = (f(x0 + h) - f(x0)) / h
@@ -128,7 +128,7 @@ derivada_derecha(f, 1.0, 1.0e-8)
 """
     derivada_simétrica(f, x0,h)
 
-Evalúa la derivada de ``f`` en ``x0`` usando diferencias finitas con el
+Evalúa la derivada de \$f\$ en \$x0\$ usando diferencias finitas con el
 incremento simétrico.
 """
 derivada_simétrica(f, x0, h) = (f(x0 + h) - f(x0 - h)) / (2h)
