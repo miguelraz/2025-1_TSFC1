@@ -32,11 +32,15 @@ function pascal(n)
 
 respuesta_b(n) = isodd.(pascal(n))
 
+#-
 respuesta_b(256)
+
+#-
 using UnicodePlots
 
 spy(respuesta_b(256))
 
+#-
 spy(respuesta_b(1024))
 
 # ---
