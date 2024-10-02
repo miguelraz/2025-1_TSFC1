@@ -72,7 +72,7 @@ function triangles(n, f)
     #n == 1
     Y_n[1] = f(p1, p3)
 
-    # n == 2
+    #n == 2
     Y_n[2] = f(p2, Y_n[1])
 
     @inbounds for i in 3:n
