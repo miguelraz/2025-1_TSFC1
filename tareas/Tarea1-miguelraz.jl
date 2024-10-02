@@ -69,7 +69,7 @@ function triangles(n, f)
     tripoints = (p1, p2, p3)
     Y_n = Vector{Tuple{Float64, Float64}}(undef, n)
 
-    # n == 1
+    #n == 1
     Y_n[1] = f(p1, p3)
 
     # n == 2
