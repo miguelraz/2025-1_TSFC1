@@ -93,7 +93,7 @@ scatterplot(first.(Y_ns), last.(Y_ns))
 # sino 1/3 de la distancia entre el vértice elegido al azar y el iterado
 # $Y_n$.
 #
-tripoint(p1, p2) = ((p1[1] + p2[1])/3, (p1[2] + p2[2])/3)
+tripoint(p1, p2) = (p1[1] + (p2[1] - p1[1])/3, p1[2] + (p2[2] - p1[2])/3)
 
 Y_ns_tripoints = triangles(10_000, tripoint)
 
