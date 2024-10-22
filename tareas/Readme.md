@@ -10,5 +10,7 @@ Los PR deberán consistir únicamente de archivos `.jl` y, a menos que otra cosa
 
 |                     | Aceptación del PR    | Estado                   |
 | :------------------ | :------------------: | :----------------------: |
-| Tarea 1             | 10/09/2024           | Abierto                  |
-| Tarea 2             | 28/09/2024           | Abierto                  |
+| Tarea 1             | 10/09/2024           | Cerrado                  |
+| Tarea 2             | 22/10/2024           | Abierto                  |
+| Tarea 3             |  5/11/2024           | Abierto                  |
+| Tarea 4             | 19/11/2024           | Abierto                  |
