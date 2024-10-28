@@ -2,6 +2,8 @@
 
 # --- Ejercicio 1 ---
 
+import Pkg
+Pkg.activate(".")
 using Plots
 
 F(x) = x^2 - 2
