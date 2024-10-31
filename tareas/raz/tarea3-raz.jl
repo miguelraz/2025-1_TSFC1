@@ -107,7 +107,6 @@ end
 plot(vcs, label = "", title = "Mapeo Q_c(x) = x^2 - c")
 
 # Re(a)
-Q(x, c) = x^2 - c 
 ex = :(Q_1(c))
 for i in 2:2^7
     ex = :(Q_1($ex))
@@ -117,6 +116,7 @@ for i in 2:2^7
     end
 end
 
+Q(x, c) = x^2 - c 
 function Qn(c, n)
     res = Q(0, c)
     for i in 2:n
@@ -125,34 +125,43 @@ function Qn(c, n)
     res
 end
 
-Q_1(c) = -c
+Q_1(c) = c
 Q_2(c) = c^2 - c 
 Q_3(c) = (c^2 - c)^2 - c
 Q_4(c) = ((c^2 - c)^2 - c)^2 - c
+Q_8(c) = Qn(c, 8)
+Q_16(c) = Qn(c, 16)
+Q_32(c) = Qn(c, 32)
+Q_64(c) = Qn(c, 32)
+Q_128(c) = Qn(c, 64)
 
 # Es claro que en esta definicion me he atorado
 # Algun tip?
-Q_1(-1.2)
- Qn(-1.2, 1)
-Q_2(-1.2)
- Qn(-1.2, 2)
-Q_3(-1.2)
- Qn(-1.2, 3)
-Q_4(-1.2)
- Qn(-1.2, 4)
+Q_1(1.2)
+ Qn(1.2, 1)
+Q_2(1.2)
+ Qn(1.2, 2)
+Q_3(1.2)
+ Qn(1.2, 3)
+Q_4(1.2)
+ Qn(1.2, 4)
 
-#=
 c1   = newton(Q_1    , 0  , 10) 
-c2   = newton(Q_2  , -1, 10) 
-c4   = newton(Q_4  , -1.4, 10) 
-c8   = newton(Q_8  , c4 , 10) 
-c16  = newton(Q_16 , c8, 10) 
-c32  = newton(Q_32 , c16, 10) 
-c64  = newton(Q_64 , c32, 10) 
-c128 = newton(Q_128, c64, 10) 
+c2   = newton(Q_2  , 1, 10) 
+c4   = newton(Q_4  , 1.2, 10) 
+c8   = newton(Q_8  , 1.36 , 10) 
+c16  = newton(Q_16 , 1.4, 20) 
+c32  = newton(Q_32 , 1.41, 20)
+c64  = newton(Q_64 , 1.42, 10) 
+c128 = newton(Q_128, 1.425, 10) 
 
-cs = der.([c1, c2, c4, c8, c16, c32, c64, c128])
-fns = [der((cs[i]-cs[i+1])/(cs[i+1] - cs[i+2])) for i in 1:6]
-=#
-
+cs = fun.([c1, c2, c4, c8, c16, c32, c64, c128])
+fns = [(cs[i]-cs[i+1])/(cs[i+1] - cs[i+2]) for i in 1:length(cs)-2]
 # (b)
+using Plots
+scatter(collect(1:6), fns)
+
+# (b).2
+dn = sort([fun(Qn(c128, i)) for i in 1:128])
+α = [-dn[i]/dn[i+1] for i in 1:127]
+α
