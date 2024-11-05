@@ -125,15 +125,15 @@ function Qn(c, n)
     res
 end
 
-Q_1(c) = c
+Q_1(c) = -c
 Q_2(c) = c^2 - c 
 Q_3(c) = (c^2 - c)^2 - c
 Q_4(c) = ((c^2 - c)^2 - c)^2 - c
 Q_8(c) = Qn(c, 8)
 Q_16(c) = Qn(c, 16)
 Q_32(c) = Qn(c, 32)
-Q_64(c) = Qn(c, 32)
-Q_128(c) = Qn(c, 64)
+Q_64(c) = Qn(c, 64)
+Q_128(c) = Qn(c, 128)
 
 # Es claro que en esta definicion me he atorado
 # Algun tip?
@@ -149,11 +149,17 @@ Q_4(1.2)
 c1   = newton(Q_1    , 0  , 10) 
 c2   = newton(Q_2  , 1, 10) 
 c4   = newton(Q_4  , 1.2, 10) 
-c8   = newton(Q_8  , 1.36 , 10) 
-c16  = newton(Q_16 , 1.4, 20) 
-c32  = newton(Q_32 , 1.41, 20)
-c64  = newton(Q_64 , 1.42, 10) 
-c128 = newton(Q_128, 1.425, 10) 
+c8   = newton(Q_8  , 1.36 , 10)
+# Verificar que la órbita sí es del periodo adecuado
+Qn(fun(c8), 8)
+c16  = newton(Q_16 , 1.4, 30)
+Qn(fun(c16), 16)
+c32  = newton(Q_32 , 1.4005, 30)
+Qn(fun(c32), 32)
+c64  = newton(Q_64 , 1.401, 30) 
+Qn(fun(c64), 64)
+c128 = newton(Q_128, 1.40115, 30)
+Qn(fun(c128), 128)
 
 cs = fun.([c1, c2, c4, c8, c16, c32, c64, c128])
 fns = [(cs[i]-cs[i+1])/(cs[i+1] - cs[i+2]) for i in 1:length(cs)-2]
@@ -162,6 +168,14 @@ using Plots
 scatter(collect(1:6), fns)
 
 # (b).2
-dn = sort([fun(Qn(c128, i)) for i in 1:128])
-α = [-dn[i]/dn[i+1] for i in 1:127]
+dn = [[fun(Qn(c2, i)) for i in 1:2], 
+    [fun(Qn(c4, i)) for i in 1:4],
+    [fun(Qn(c8, i)) for i in 1:8],
+    [fun(Qn(c16, i)) for i in 1:16],
+    [fun(Qn(c32, i)) for i in 1:32],
+    [fun(Qn(c64, i)) for i in 1:64],
+    [fun(Qn(c128, i)) for i in 1:128]]
+dn2 =  [sort(abs.(x)) for x in dn]
+fns = [dn2[i][2] for i in 1:7]
+α = [-fns[i]/fns[i+1] for i in 1:5]
 α
