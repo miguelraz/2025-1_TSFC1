@@ -179,3 +179,16 @@ dn2 =  [sort(abs.(x)) for x in dn]
 fns = [dn2[i][2] for i in 1:7]
 α = [-fns[i]/fns[i+1] for i in 1:5]
 α
+
+# Shortcut!
+# El periodo 2^p/2 te lleva *justo* al punto que quieres!
+
+shorts = [Qn(c2, 1)
+ Qn(c4, 2)
+ Qn(c8, 4)
+ Qn(c16, 8)
+ Qn(c32, 16)
+ Qn(c64, 32)
+ Qn(c128, 64)
+] .|> fun .|> abs |> sort |> reverse
+α2 = [-shorts[i]/shorts[i+1] for i in 1:5]
