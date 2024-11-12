@@ -3,7 +3,7 @@
 # --- Ejercicio 1 ---
 
 import Pkg
-Pkg.activate(".")
+Pkg.activate("..")
 using Plots
 
 F(x) = x^2 - 2
@@ -34,14 +34,14 @@ histogram(ys, normalize = true, label = "", title = "Frecuencia de puntos en la 
 # (c)
 # Raz: Que más bien podemos tomar muchos distintos puntos aleatorios e
 # iterarlos pocas veces para que "caigan" en sus órbitas respectivas.
+# También sucede que una sóla orbita perseguida por mucho tiempo va a recorrer la totalidad del
+# espacio de interés - es decir, va a reflejar un comportamiento ergódico.
 
 # --- Ejercicio 2 ---
 
 # (a)
 include("duales-raz.jl")
 using .NumDual
-
-import .NumDual: fun, der
 
 # (b.1)
 function newton(f, x0, N)
@@ -69,11 +69,11 @@ root = newton(f_1, 2, 100)
 f_2(x) = x^2 - 1.1
 f_2_fijo(x) = x^2 - 1.1 - x
 
-# (d)
 raiz_fijo = newton(f_2_fijo, -0.5, 10)
 p1 = f_2(raiz_fijo)
 p2 = f_2(p1)
 
+# (d)
 f_2_p2(x) = f_2(f_2(x)) - x
 raiz_p2_fijo = newton(f_2_p2, -1., 10)
 p22 = f_2(raiz_p2_fijo)
@@ -83,7 +83,15 @@ F(x) = x^2 - 1
 F2_fijo(x) = F(F(x)) - x 
 fijo_F2 = newton(F2_fijo, -1, 10)
 fijo_F2_2 = F(fijo_F2)
-# La derivada carga con los productos de la regla de la cadena.
+
+# Estos no jalan
+F(fijo_F2_2)
+F(fijo_F2)
+
+# Estos si tienen la misma derivada!
+F(F(fijo_F2))
+F(F(fijo_F2_2))
+# ... y el valor absoluto es menor que 1, ergo es linealmente estable.
 
 # --- Ejercicio 3 ---
 
@@ -107,6 +115,7 @@ end
 plot(vcs, label = "", title = "Mapeo Q_c(x) = x^2 - c")
 
 # Re(a)
+#=
 ex = :(Q_1(c))
 for i in 2:2^7
     ex = :(Q_1($ex))
@@ -115,6 +124,7 @@ for i in 2:2^7
         @eval $op(c) = $ex
     end
 end
+=#
 
 Q(x, c) = x^2 - c 
 function Qn(c, n)
