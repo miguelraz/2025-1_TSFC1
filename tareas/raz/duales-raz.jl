@@ -15,6 +15,8 @@ Base.:+(x::Dual, y::Real) = x + Dual(y)
 Base.:+(x::Real, y::Dual) = Dual(x) + y
 Base.:-(x::Dual, y::Real) = x - Dual(y)
 Base.:-(x::Real, y::Dual) = Dual(x) - y
+Base.:-(x::Dual) = Dual(-fun(x), -der(x))
+Base.:+(x::Dual) = Dual(fun(x), der(x))
 Base.:*(x::Dual, y::Real) = x * Dual(y)
 Base.:*(x::Real, y::Dual) = Dual(x) * y
 Base.:/(x::Dual, y::Real) = x / Dual(y)
@@ -37,6 +39,6 @@ Base.sqrt(x::Dual) = Dual(sqrt(x.fun), .5/sqrt(fun(x)) * der(x))
 Base.exp(x::Dual) = Dual(exp(x.fun), fun(x) * der(x))
 Base.log(x::Dual) = Dual(log(x.fun), 1/fun(x) * der(x))
 
-export Dual, dual
+export Dual, dual, fun, der
 
 end #module 
